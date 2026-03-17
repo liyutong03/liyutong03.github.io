@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yutong Li | Hainan University</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #2a5caa;
+    --accent-light: #e8f0fb;
+    --text: #1a1a1a;
+    --muted: #555;
+    --border: #e0e0e0;
+    --bg: #fafafa;
+    --card-bg: #fff;
+    --tag-bg: #f0f4fa;
+    --tag-color: #2a5caa;
+    --nav-bg: #ffffffee;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.75;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+  nav ul {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  nav ul li a {
+    display: block;
+    padding: 14px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  nav ul li a:hover { color: var(--accent); text-decoration: none; }
+
+  /* LAYOUT */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+  /* PROFILE */
+  .profile {
+    display: flex;
+    gap: 2.5rem;
+    align-items: flex-start;
+    padding: 3.5rem 0 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .avatar-wrap {
+    flex-shrink: 0;
+  }
+  .avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c8d8f0 0%, #a0bce0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'EB Garamond', serif;
+    font-size: 42px;
+    color: var(--accent);
+    border: 3px solid #fff;
+    box-shadow: 0 2px 16px rgba(42,92,170,0.12);
+    overflow: hidden;
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .profile-info h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .profile-info .role {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .profile-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12.5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: var(--tag-bg);
+    color: var(--tag-color);
+    font-weight: 500;
+    transition: background 0.15s;
+  }
+  .profile-links a:hover { background: #d0e0f8; text-decoration: none; }
+
+  /* SECTIONS */
+  section { padding: 2.5rem 0; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: none; }
+  h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.45rem;
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h3 {
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 1.6rem 0 0.9rem;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3:first-child { margin-top: 0; }
+
+  /* ABOUT */
+  .about-text p { margin-bottom: 0.9rem; color: #333; }
+  .research-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 12px;
+  }
+  .rtag {
+    font-size: 12.5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: var(--tag-bg);
+    color: var(--tag-color);
+    font-weight: 500;
+  }
+
+  /* NEWS */
+  .news-list { list-style: none; }
+  .news-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+  .news-list li:last-child { border-bottom: none; }
+  .news-date {
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 80px;
+    font-weight: 500;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  .badge-blue { background: #dbeafe; color: #1e40af; }
+  .badge-green { background: #dcfce7; color: #166534; }
+  .badge-amber { background: #fef3c7; color: #92400e; }
+
+  /* PUBLICATIONS */
+  .pub-item {
+    display: flex;
+    gap: 1.2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f4f4f4;
+    align-items: flex-start;
+  }
+  .pub-item:last-child { border-bottom: none; }
+  .pub-venue {
+    flex-shrink: 0;
+    width: 60px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 6px;
+    border-radius: 6px;
+    background: var(--accent-light);
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    margin-top: 2px;
+  }
+  .pub-body {}
+  .pub-title {
+    font-size: 14.5px;
+    font-weight: 500;
+    margin-bottom: 3px;
+    color: var(--text);
+  }
+  .pub-title a { color: var(--text); }
+  .pub-title a:hover { color: var(--accent); }
+  .pub-authors {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .pub-authors strong { color: var(--text); font-weight: 500; }
+  .pub-conf {
+    font-size: 12.5px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 5px;
+  }
+  .pub-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pub-link {
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: #fff;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .pub-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+  .pub-note {
+    font-size: 12px;
+    color: #c07000;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  /* EDUCATION */
+  .edu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid #f4f4f4;
+    font-size: 14px;
+  }
+  .edu-item:last-child { border-bottom: none; }
+  .edu-left { display: flex; flex-direction: column; gap: 2px; }
+  .edu-school { font-weight: 500; }
+  .edu-degree { color: var(--muted); font-size: 13px; }
+  .edu-year { font-size: 13px; color: var(--muted); white-space: nowrap; }
+
+  /* AWARDS */
+  .award-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 7px 0;
+    border-bottom: 1px solid #f4f4f4;
+    font-size: 14px;
+  }
+  .award-item:last-child { border-bottom: none; }
+  .award-year { font-size: 13px; color: var(--muted); white-space: nowrap; }
+
+  /* SERVICES */
+  .service-list { list-style: none; }
+  .service-list li {
+    padding: 6px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #f4f4f4;
+    color: #333;
+  }
+  .service-list li:last-child { border-bottom: none; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 0;
+    font-size: 12.5px;
+    color: #aaa;
+  }
+
+  /* COLLAPSE */
+  .collapse-toggle {
+    font-size: 13px;
+    color: var(--accent);
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .collapse-toggle:hover { text-decoration: underline; }
+  .collapsible { display: none; }
+  .collapsible.open { display: block; }
+
+  @media (max-width: 640px) {
+    .profile { flex-direction: column; gap: 1.5rem; }
+    .avatar { width: 100px; height: 100px; }
+    nav ul { gap: 0; flex-wrap: wrap; }
+    nav ul li a { padding: 10px 8px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#services">Services</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <!-- PROFILE -->
+  <div class="profile">
+    <div class="avatar-wrap">
+      <div class="avatar">YL</div>
+    </div>
+    <div class="profile-info">
+      <h1>Yutong Li &nbsp;<span style="font-size:1.2rem;color:#888;">李禹佟</span></h1>
+      <div class="role">
+        Undergraduate Student &nbsp;·&nbsp; Hainan University<br>
+        Advised by Prof. <a href="#">Hua Li</a>
+      </div>
+      <div style="font-size:13.5px; color:#555; margin-top:6px;">
+        📧 &nbsp;<a href="mailto:yutong@hainanu.edu.cn">yutong@hainanu.edu.cn</a>
+      </div>
+      <div class="profile-links">
+        <a href="#">📄 CV</a>
+        <a href="#">GitHub</a>
+        <a href="#">Google Scholar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>👋 About Me</h2>
+    <div class="about-text">
+      <p>
+        I am an undergraduate student at <a href="https://www.hainu.edu.cn/">Hainan University</a>, advised by Prof. <a href="#">Hua Li</a>.
+        My current research focuses on <strong>Time Series Analysis</strong> and <strong>Large Language Models (LLMs)</strong>,
+        exploring how foundation models can reason over temporal data.
+        Previously, I worked on <strong>Computer Vision</strong> tasks.
+      </p>
+      <p>
+        I am broadly interested in building intelligent systems that understand and forecast complex real-world signals,
+        bridging the gap between powerful language models and structured temporal reasoning.
+      </p>
+    </div>
+    <div style="margin-top:14px;">
+      <div style="font-size:13px;font-weight:500;color:var(--muted);margin-bottom:8px;">🔍 Research Interests</div>
+      <div class="research-tags">
+        <span class="rtag">Time Series Analysis</span>
+        <span class="rtag">Large Language Models</span>
+        <span class="rtag">Time Series Forecasting</span>
+        <span class="rtag">Computer Vision</span>
+        <span class="rtag">Multimodal Learning</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section id="news">
+    <h2>🔥 News</h2>
+    <ul class="news-list" id="news-main">
+      <li>
+        <span class="news-date">[Mar. 2025]</span>
+        <span>Started research on LLM-based time series reasoning under Prof. Hua Li. <span class="badge badge-blue">New Direction</span></span>
+      </li>
+      <li>
+        <span class="news-date">[Sep. 2024]</span>
+        <span>Transitioned research focus from Computer Vision to Time Series &amp; LLMs.</span>
+      </li>
+      <li>
+        <span class="news-date">[Sep. 2023]</span>
+        <span>Joined Hainan University and started undergraduate studies. Began working on Computer Vision projects.</span>
+      </li>
+    </ul>
+    <div id="news-extra" class="collapsible">
+      <ul class="news-list">
+        <li>
+          <span class="news-date">[2023]</span>
+          <span>More news will be added here as your journey continues. 🚀</span>
+        </li>
+      </ul>
+    </div>
+    <button class="collapse-toggle" onclick="toggleCollapse('news-extra', this)">
+      ▶ Show more
+    </button>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <h2>📝 Publications &amp; Preprints</h2>
+
+    <h3>⏱ Time Series &amp; LLM</h3>
+
+    <div class="pub-item">
+      <div class="pub-venue">arXiv<br>2025</div>
+      <div class="pub-body">
+        <div class="pub-title"><a href="#">[Paper Title] — LLM-Enhanced Time Series Forecasting</a></div>
+        <div class="pub-authors"><strong>Yutong Li</strong>, Hua Li</div>
+        <div class="pub-conf">arXiv preprint, 2025.</div>
+        <div class="pub-links">
+          <a class="pub-link" href="#">PDF</a>
+          <a class="pub-link" href="#">Code</a>
+        </div>
+        <div class="pub-note">⭐ Work in progress — replace with your actual paper</div>
+      </div>
+    </div>
+
+    <h3>👁 Computer Vision (Previous Work)</h3>
+
+    <div class="pub-item">
+      <div class="pub-venue">arXiv<br>2024</div>
+      <div class="pub-body">
+        <div class="pub-title"><a href="#">[Paper Title] — Computer Vision Project</a></div>
+        <div class="pub-authors"><strong>Yutong Li</strong>, Hua Li</div>
+        <div class="pub-conf">arXiv preprint, 2024.</div>
+        <div class="pub-links">
+          <a class="pub-link" href="#">PDF</a>
+          <a class="pub-link" href="#">Code</a>
+        </div>
+        <div class="pub-note">📌 Placeholder — add your real publications</div>
+      </div>
+    </div>
+
+    <p style="font-size:12.5px;color:#aaa;margin-top:1rem;">* Equal Contribution &nbsp;# Corresponding Author</p>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <h2>🎓 Education</h2>
+    <div class="edu-item">
+      <div class="edu-left">
+        <span class="edu-school"><a href="https://www.hainu.edu.cn/">Hainan University</a></span>
+        <span class="edu-degree">B.Eng. in [Your Major] &nbsp;·&nbsp; Advised by Prof. Hua Li</span>
+      </div>
+      <span class="edu-year">2023 – Present</span>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards">
+    <h2>🎖 Honors &amp; Awards</h2>
+    <div class="award-item">
+      <span>Add your awards and scholarships here</span>
+      <span class="award-year">20XX</span>
+    </div>
+    <div class="award-item">
+      <span>Competition prize, scholarship, or recognition</span>
+      <span class="award-year">20XX</span>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <h2>📖 Services</h2>
+    <h3>Academic</h3>
+    <ul class="service-list">
+      <li>Reviewer / Volunteer for [Conference Name], 20XX</li>
+      <li>Teaching Assistant, [Course Name], [Semester]</li>
+    </ul>
+    <h3>Contact</h3>
+    <ul class="service-list">
+      <li>📧 Email: <a href="mailto:yutong@hainanu.edu.cn">yutong@hainanu.edu.cn</a></li>
+      <li>🏫 Office: Hainan University, Haikou, China</li>
+    </ul>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2025 Yutong Li &nbsp;·&nbsp; Powered by HTML &amp; CSS</p>
+</footer>
+
+<script>
+function toggleCollapse(id, btn) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+  btn.textContent = el.classList.contains('open') ? '▼ Show less' : '▶ Show more';
+}
+
+// Smooth scroll for nav links
+document.querySelectorAll('nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>
